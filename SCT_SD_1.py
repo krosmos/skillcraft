@@ -4,12 +4,10 @@ import customtkinter
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
 
-# Create the root window
 root = customtkinter.CTk()
 root.geometry("500x400")
 root.title("Temperature Converter")
 
-# Function to convert temperature
 def check():
     if(cel_input.get() != ""):
         ipVal = cel_input.get()
@@ -48,15 +46,13 @@ def clear():
     cel_input.delete(0,"end")
     fah_input.delete(0,"end")
     kel_input.delete(0,"end")
-# Create frame
+
 frame = customtkinter.CTkFrame(master=root)
 frame.grid(row=0, column=0, pady=55, padx=85, sticky="nsew")
 
-# Label for Title
 label = customtkinter.CTkLabel(master=frame, text="Temperature Converter", font=("Comic-Sans", 25))
 label.grid(row=0, column=0, columnspan=2, pady=12, padx=10)
 
-# Input field for temperature value
 cel_input = customtkinter.CTkEntry(master=frame, placeholder_text="--Celsius--")
 cel_input.grid(row=1, column=1, pady=12, padx=10)
 cel_label = customtkinter.CTkLabel(master=frame, text="°C", font=("Comic-Sans", 25,))
@@ -72,12 +68,10 @@ kel_input.grid(row=3, column=1, pady=12, padx=10)
 kel_label = customtkinter.CTkLabel(master=frame, text="K", font=("Comic-Sans", 25,))
 kel_label.grid(row=3, column=0, pady=12, padx=10)
 
-# Buttons for Celsius and Fahrenheit conversion
 check_btn = customtkinter.CTkButton(master=frame, text="Check", command = check)
 check_btn.grid(row=4, column=0, padx=(10, 5), pady=10)
 
 clr_btn = customtkinter.CTkButton(master=frame, text="Clear", command= clear)
 clr_btn.grid(row=4, column=1, padx=(10, 5), pady=10)
 
-# Start the main event loop
 root.mainloop()
