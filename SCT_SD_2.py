@@ -15,21 +15,24 @@ root.title("Guessing game")
 global the_num
 def setNew():
     global the_num
-    the_num = random.randint(0,100)
+    the_num = random.randint(0,100) #setting the num
+
+    #removing input after every guess
     if(btn._text != "Start Game"):
         num_ip.delete(0,"end")
+    
+    #resetting the game info
     qn.configure(text="?")
     info.configure(text="Try a number\nbetween 0 to 100")
-
     btn.configure(text="Lock in", command=guess)
+
+    #displaying game UI on start
     info.grid(row=1, column=0, padx=10, pady=0)
     qn.grid(row=2, column=0,padx=10,pady=6)
     num_ip.grid(row=3,column=0,padx=10,pady=2)
     
-
 def guess():
     n = int(num_ip.get())
-    print(the_num)
     if(the_num == n):
         info.configure(text="You guessed it right!\nThe number was:")
         qn.configure(text=str(n))
