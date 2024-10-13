@@ -8,8 +8,13 @@ root = customtkinter.CTk()
 root.geometry("500x400")
 root.title("Temperature Converter")
 
+def update_last_modified(entry_name):
+    global last_modified  
+    last_modified = entry_name
+
 def check():
-    if(cel_input.get() != ""):
+    global last_modified
+    if(last_modified == "Celsius" and cel_input.get() != ""):
         ipVal = cel_input.get()
 
         fah_res = (float(ipVal) * 9/5) + 32
@@ -20,7 +25,7 @@ def check():
         kel_input.delete(0,"end")
         kel_input.insert(0,round(kel_res,2))
 
-    elif(fah_input.get() != ""):
+    elif(last_modified == "Fahrenheit" and fah_input.get() != ""):
         ipVal = fah_input.get()
 
         cel_res = (float(ipVal) - 32) * 5/9
@@ -31,7 +36,7 @@ def check():
         kel_input.delete(0,"end")
         kel_input.insert(0,round(kel_res,2))
 
-    elif(kel_input.get() != ""):
+    elif(last_modified == "Kelvin" and kel_input.get() != ""):
         ipVal = kel_input.get()
 
         fah_res = (float(ipVal) - 273.15) * 9/5 + 32
@@ -46,6 +51,8 @@ def clear():
     cel_input.delete(0,"end")
     fah_input.delete(0,"end")
     kel_input.delete(0,"end")
+    global last_modified
+    last_modified = None
 
 frame = customtkinter.CTkFrame(master=root)
 frame.grid(row=0, column=0, pady=55, padx=85, sticky="nsew")
@@ -73,5 +80,9 @@ check_btn.grid(row=4, column=0, padx=(10, 5), pady=10)
 
 clr_btn = customtkinter.CTkButton(master=frame, text="Clear", command= clear)
 clr_btn.grid(row=4, column=1, padx=(10, 5), pady=10)
+
+cel_input.bind("<FocusIn>", lambda e: update_last_modified("Celsius"))
+fah_input.bind("<FocusIn>", lambda e: update_last_modified("Fahrenheit"))
+kel_input.bind("<FocusIn>", lambda e: update_last_modified("Kelvin"))
 
 root.mainloop()
